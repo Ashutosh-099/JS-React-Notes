@@ -115,8 +115,8 @@ NPM is like a magic toolbox for JavaScript programmers. It is a kind of reposito
 
   ### Read about: ^ - caret and ~ - tilde:
   - We saw that after installing packages from node, there is caret or tilde sign as prefix in package versions. Like ^18.0.3
-  - Caret (^): When you use the caret symbol (^) in front of a version number, it indicates that you want to allow updates to the package as long as the major version remains the same. In semantic versioning (semver), versions are represented as MAJOR.MINOR.PATCH.
-  - Tilde (~): The tilde symbol (~) is used to specify a version range that allows updates to a package as long as the most recent version is within the same minor version range. In other words, it permits updates as long as the patch version is incremented.
+  - Caret `(^)`: When you use the caret symbol (^) in front of a version number, it indicates that you want to allow updates to the package as long as the major version remains the same. In semantic versioning (semver), versions are represented as MAJOR.MINOR.PATCH.
+  - Tilde `(~)`: The tilde symbol (~) is used to specify a version range that allows updates to a package as long as the most recent version is within the same minor version range. In other words, it permits updates as long as the patch version is incremented.
 - Now to execute the application, run this command in terminal: `npx parcel index.html`
 - This will create a faster development version of our project and serves it on the server.
 - To create production build using parcel, run this command in terminal: `npx parcel build index.html`, It will create all the production files to `dist` folder.
