@@ -73,4 +73,4 @@ root.render(heading);  // Render heading after linking root
 ### **Appendix**:
 - **`Emmet`** is a powerful toolkit for web developers and designers that greatly enhances their HTML and CSS workflow. It helps in writing code more quickly and efficiently by providing shortcuts for common HTML and CSS patterns.
 - **`CDN`**: Content Delivery Network. It is network of distributed servers located in various data center around the world. The primary purpose of a CDN is to deliver web content, such as images, videos, scripts, stylesheets, and other static or dynamic resources, to users more efficiently and with higher performance.
-- **`Cross origin`**: The crossorigin attribute in the script tag enables CrossOrigin Resource Sharing (CORS) for loading external JavaScript files from different origin than the hosting web page.
+- **`Cross origin(CORS)`**: The crossorigin attribute in the script tag enables CrossOrigin Resource Sharing (CORS) for loading external JavaScript files from different origin than the hosting web page.
