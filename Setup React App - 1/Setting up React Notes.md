@@ -120,6 +120,14 @@ NPM is like a magic toolbox for JavaScript programmers. It is a kind of reposito
 - Now to execute the application, run this command in terminal: `npx parcel index.html`
 - This will create a faster development version of our project and serves it on the server.
 - To create production build using parcel, run this command in terminal: `npx parcel build index.html`, It will create all the production files to `dist` folder.
+  ### Another way to execute the application:
+  - We can create scripts instead of using `npx parcel index.html`. We can also create different scripts for starting our project in Development and Production.
+  - In `package.json`, in the scripts section write the following command:
+    ![image](https://github.com/user-attachments/assets/ab5dbf00-b3f6-4937-91bf-03603f74407b)
+  - Now to run the solution, execute the following commands in the terminal:
+  - To Start: `npm run start`
+  - For Production: `npm run build`
+
 
 ## Interesting Package details:
 ### Browserslist:
