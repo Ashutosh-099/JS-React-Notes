@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.header-bar {
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    height: 28px;
+    width: 464px;
+}
+
+.logo-img {
+    height: 72px;
+}
+
+.user-icon {
+    height: 48px;
+}
