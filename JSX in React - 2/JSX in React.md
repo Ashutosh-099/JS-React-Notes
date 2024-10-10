@@ -96,3 +96,10 @@ const HeadingComponent = () => (
 ###  What will happen if we call 2 elements inside each other?
 - If we put 2 components inside each other, then it will go into an infinite loop and the stack will overflow. It will freeze your browser, so it’s not recommended to do so.
 
+### Role of type attribute in a script tag? What options can I use there?
+- The type attribute in a <script> tag is used to specify the media type of the script content. It tells the browser how to interpret the script. There are a few different values you can use with the type attribute:
+  1. Omitted or Empty String: If the type attribute is omitted or set to an empty string (type=""), the browser will assume the default JavaScript type
+  2. text/javascript (Deprecated)
+  3. module
+  4. text/babel
+  5. text/typescript
