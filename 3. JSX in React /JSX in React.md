@@ -72,6 +72,23 @@ const Heading = () => {
 - We can also call them using `<Heading></Heading>`
 - Another way to call functional component is `{Heading()}`. As this is function at the end, we can call like function.
 
+### Class Component:
+- This is the older or legacy way to create react component.
+```
+class Heading extends React.Component{
+  constructor() {
+    super();
+    // Define any state here
+  }
+
+  render() {
+    return (<h1> Heading </Heading>);
+  }
+}
+
+export default Heading;
+```
+
 ### Component composition:
 - A component inside component is called component composition.
 ![image](https://github.com/user-attachments/assets/9833b33d-9a3e-4d27-8f80-aba8b3b1df44)
