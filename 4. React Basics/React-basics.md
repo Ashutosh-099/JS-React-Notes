@@ -45,3 +45,21 @@ const Heading = ({ name, age }) => {
   );
 }
 ```
+
+## <React.Fragment></React.Fragment>
+- `React.Fragment` are used to define fragments. Fragments are way to group multiple children without adding any extra DOM element.
+- They are often used when we need to return multiple elements from a component's render method but don't want to wrap them in a container element like <div>.
+- Another way to define fragment is `<></>`.
+- The reason we use fragment is it helps to make our code cleaner and more semantically meaningful.
+```
+import React from 'react';
+
+function MyComponent() {
+  return(
+    <React.Fragment>
+      <h1> Hello World </h1>
+      <h2> Hello </h2>
+    </React.Fragment>
+  );
+}
+```
