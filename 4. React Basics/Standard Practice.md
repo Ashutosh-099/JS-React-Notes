@@ -40,3 +40,14 @@ const Body = () => {
 - Config is the data coming from the api which keeps on changing according to different factors like user, location, etc.
 - This is the most important concepts as it is used by most of the top products.
 
+## React Reconcilation
+- `Reconciliation` in React refers to the process by which React updates the DOM (Document Object Model) to match the most recent state of the application.
+- React uses a virtual representation of the DOM called the "Virtual DOM" to efficiently update the actual DOM.
+- Reconciliation is the algorithmic process of comparing the previous virtual DOM with the current one and making the necessary changes to bring the actual DOM in sync with the application's state.
+- React uses a diffing algorithm to identify the differences (or "diffs") between the new and previous virtual trees.
+- Reconciliation is a critical aspect of React's performance optimization.
+
+## React Fiber
+- React Fiber, often referred to simply as Fiber is an internal and ongoing reimplementation of the React reconciliation algorithm.
+- It was introduced by the React team to address some limitations and performance bottlenecks in the original reconciliation process.
+- The primary goals of React Fiber are: Improved Rendering - Fiber introduces a new, more efficient algorithm for rendering components. It allows React to break down rendering work into smaller units and prioritize the work more effectively.
