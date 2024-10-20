@@ -51,3 +51,27 @@ const Body = () => {
 - React Fiber, often referred to simply as Fiber is an internal and ongoing reimplementation of the React reconciliation algorithm.
 - It was introduced by the React team to address some limitations and performance bottlenecks in the original reconciliation process.
 - The primary goals of React Fiber are: Improved Rendering - Fiber introduces a new, more efficient algorithm for rendering components. It allows React to break down rendering work into smaller units and prioritize the work more effectively.
+
+## Folder structure in React
+- The good convention in the industry for folder structure is that all the code in the react project must be kept in `src` folder.
+- There is no compulsion to use `src` folder, but this is what developers followed in industry.
+- So it means we will move all the component file or main file `App.jsx` in src.
+- The best practice is to make seperate file for each component, to clearly understand the code and also helps to modularize our solution.
+- Let's say we have three main components in our application, which are Header, body and footer, then we can differentiate them by seperating these components in three different files.
+- Also, we should all these component files inside `components(child inside src)` folder, to clearly understand all the components are lies here, and it also differentiate these files from other files.
+- Remember to keep the component name and file name in Sentence Case, i.e. `Header.jsx`, `Footer.jsx`.
+```
+- node_modules
+- dist
+- src
+  - \components
+    - Header.jsx
+    - Body.jsx
+    - Footer.jsx
+  - App.jsx
+- .git-ignore
+- index.html
+- package-lock.json
+- package.json
+- README.md
+```
