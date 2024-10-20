@@ -85,6 +85,46 @@ export default Header;
 {/* export default Header.jsx */} // Another way of export
 ```
 - To import such component, we can use `import Header from './components/Header';`
+- There is a catch, we cannot export multiple items simultaneously using this method.
 
 ### Named import/export:
+- We used this method when there is more than one function or any other thing need to export from single file.
+- Usually it is used in `common.js` or in `utils` section where we defined, mock data, helper functions etc.
+- Just write the `export` keyword before the variable name.
+- E.g.: `export const mockData = {};`
+- To import this, we can use `import {mockData} from "../../utils.js`;
+- We can use both default and named export/import on same component, it works for both way.
 - 
+## Where should we keep non-components files?
+- Non components files which works as background file, it has some logic which is used in component to achieve some task.
+- Such non-component works are API calls, helper function, mock data, constant values, URLs, logo, images etc.
+- We should not these logic into component files, it will make component file bigger, and confusing.
+- To keep the clean code, we should put this logics into seperate files.
+- Therefore, we can create `utils` folder, and inside it, we can store all these behind the logic code and hardcoded code.
+
+## How to render same component multiple times in a component?
+- Let's say we need to render restaurants in a card.
+- For that we can create component template which shows restaurant data and use this same component for each restaurants.
+- But there are 100+ restaurants that we need to render.
+- To solve this, we can use `map()` function, it's an normal JavaScript function.
+- E.g.: Let's say we have restaurants details in 'resList'
+```
+{
+  resList.map(restaurant => (
+    <Card restroDetails={restaurant} />
+  ));
+}
+```
+
+## How can we display filtered components dynamically on UI?
+- To continue the above example, we have restaurants having rating details.
+- Now we need to render only those restaurant which have rating 4+, which means we need to filter the data, while rendering.
+- To filter the data, we can use `filter()` function.
+- E.g.
+```
+{const filteredList = resList.filter(restaurant => {
+  return restaurant.rating > 4;
+})}
+```
+
+  
