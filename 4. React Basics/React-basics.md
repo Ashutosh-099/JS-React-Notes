@@ -63,3 +63,28 @@ function MyComponent() {
   );
 }
 ```
+
+## Understanding of Import and Export in React
+- There are two different types of export and import in React.
+  1. Default import/export
+  2. Named import/export
+- We need to import or export the components to use them in other components or main components, also to link the components with each other. Otherwise it will not render the components on web.
+
+### Default import/export
+- Syntax: `export default <COMPONENT_NAME>`
+- We use `export` and `default` keyword with the component name at the end of component file.
+- E.g.
+```
+const Header = () => {
+  return(
+    <h1>Heaader</h1>
+  );
+}
+
+export default Header;
+{/* export default Header.jsx */} // Another way of export
+```
+- To import such component, we can use `import Header from './components/Header';`
+
+### Named import/export:
+- 
