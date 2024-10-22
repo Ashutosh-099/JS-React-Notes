@@ -94,7 +94,21 @@ export default Header;
 - E.g.: `export const mockData = {};`
 - To import this, we can use `import {mockData} from "../../utils.js`;
 - We can use both default and named export/import on same component, it works for both way.
-- 
+- There is one more method of import/export which is Wildcard or Namespace Exports (* as).
+- Wildcard or Namespace exports allows you to export all named exports from a module under a single namespace or object.
+- To create a wildcard export, we can use the export * syntax.
+- E.g.:
+```
+export const funcA = () => {///}
+export const funcB = () => {///}
+```
+- To import all the named exports, we can use
+```
+import * as utils from './util.js';
+
+// Use it as utils.funcA() or utils.funcB()
+```
+
 ## Where should we keep non-components files?
 - Non components files which works as background file, it has some logic which is used in component to achieve some task.
 - Such non-component works are API calls, helper function, mock data, constant values, URLs, logo, images etc.
@@ -116,7 +130,7 @@ export default Header;
 }
 ```
 
-## How can we display filtered components dynamically on UI?
+## How can we display filtered data dynamically on UI?
 - To continue the above example, we have restaurants having rating details.
 - Now we need to render only those restaurant which have rating 4+, which means we need to filter the data, while rendering.
 - To filter the data, we can use `filter()` function.
@@ -127,4 +141,13 @@ export default Header;
 })}
 ```
 
-  
+## config.js & it's importance:
+- config.js files are text files that hold essential program information.
+- They are structured for user configuartion. Many programs such as office suits and web browsers, rely on menu-driven configurations.
+- These files typically follow a simple structure, often using key-value pairs for settings.
+- For instance, if an application only needs to store a user's preferred name, the config file might look like this:
+```
+NAME='Ashutosh'
+SURNAME='Agarwal'
+```
+- However, most application require multiple settings, so config files often contain key-value pairs for various options.
