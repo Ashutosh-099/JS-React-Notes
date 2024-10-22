@@ -25,3 +25,32 @@ const [resList, setResList] = useState([]);  // resList is state variable with a
 -  This means that as soon as the data layer changes, React promptly updates the UI layer. The data layer is always kept in sync with the UI layer.
 -  To achieve this rapid operation, React employs a `reconciliation algorithm`, also known as the `diffing algorithm` or `React-Fibre`.
 
+
+### useEffect()
+- This hook enables you to perform side effects in your components, such as data fetching, subscriptions, or manually changing the DOM.
+- It's the functional equivalent of the `componentDidMount()`, `componentDidUpdate()` and `componentWillUnMount()` lifecycle methods in class components.
+- Import useEffect function from react package like `import { useEffect } from 'react';`
+- Syntax of useEffect is `useEffect(() => {}, [])`. useEffect is a function which not returns anything, it accepts two arguments which is callback function and dependency array.
+- Most normal usage of useEffect is having fetch api and update the state variable of the component.
+- Example:
+```
+import React, { useState, useEffect } from 'react';
+
+function DataFetching = () => {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    // Fetch data and update the state variable
+    const response = await fetch("API_URL");
+    const data = response.json();
+    setData(data);
+  }, []);  // Dependency array is empty, it means useEffect will call once after the render method.
+
+  return(
+    <p>{data}</p>
+  );
+}
+```
+
+
+
