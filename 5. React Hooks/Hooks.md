@@ -51,6 +51,7 @@ function DataFetching = () => {
   );
 }
 ```
-
-
+#### When will callback function get called inside the useEffect():
+- Callback function is getting called after the whole component get rendered.
+- If we have to do something after the render cycle completes we can pass it inside the useEffect, this is the actual use case of useEffect.
 
