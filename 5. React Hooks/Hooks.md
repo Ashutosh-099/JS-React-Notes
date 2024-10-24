@@ -24,6 +24,7 @@ const [resList, setResList] = useState([]);  // resList is state variable with a
 -  The crucial point about State variables is that whenever they update, React triggers a reconciliation cycle and re-renders the component.
 -  This means that as soon as the data layer changes, React promptly updates the UI layer. The data layer is always kept in sync with the UI layer.
 -  To achieve this rapid operation, React employs a `reconciliation algorithm`, also known as the `diffing algorithm` or `React-Fibre`.
+-  One interesting aspect is how we manage to modify a `const` variable (assigning const to state variable), which traditionally isn't possible. However, because react re-render the entire component when a state variable changes, it essentially creates a new instance of state variable with the updated value. So, in essence, we are not updating state variable instead, React creates a new one with the modified value each time the state changes. This is one of the beauty of React.
 
 
 ### useEffect()
