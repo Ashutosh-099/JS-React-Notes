@@ -56,7 +56,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world</div>,
+    element: <div>Hello world</div>,    // Replace with the component instead of this
+    // element: <App />
   },
 ]);
 
@@ -66,3 +67,125 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 ```
+
+#### Handling errors in React routing:
+- It's always a good idea to know how your app responds to errors early in the project because we all write far more bugs than features when building a new app! Not only will your users get a good experience when this happens, but it helps you during development as well.
+- However, React router also gives its own error page, but we can also give customize error page.
+- Let's create our own error page.
+
+`ErrorPage.jsx`
+```
+import { useRouteError } from 'react-router-dom';
+
+const ErrorPage = () => {
+  const error = useRouteError();
+  return (
+    <div id="error-page">
+      <h1>Oops!</h1>
+      <p>Sorry, an unexpected error has occurred.</p>
+      <p>
+        <i>{error.statusText || error.message}</i>
+      </p>
+    </div>
+  );
+}
+
+// Do this change in index.jsx
+import ErrorPage from "./error-page";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+]);
+```
+
+
+#### Passing dynamic value as parameter in URL
+- We can pass value with the routes using `:`.
+- E.g. `"/contact/:contact"`
+```
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/contact/:conID,
+    element: <Contact />,
+  }
+]);
+
+// In Contact.jsx, do this change for accepting the parameter value
+
+import { useParams } from 'react-router-dom';
+
+const Contact = () => {
+  const { conId } = useParams();
+
+  return(
+    .....
+  );
+}
+```
+- The `useParams` hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>.
+
+#### Nested Routes
+- We can also create childrens of main route.
+```
+const route = createBrowserRouter([
+  {
+    path: "/",
+    element: "<Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+    ],
+  }
+]);
+```
+
+- But it will not work, because We need to tell the root route where we want it to render its child routes. We do that with `<Outlet>`.
+- In Root.jsx
+```
+import { Outlet } from "react-router-dom";
+
+export default function Root() {
+  return (
+    <>
+      {/* all the other elements */}
+      <div id="detail">
+        <Outlet />
+      </div>
+    </>
+  );
+}
+```
+- An <Outlet> should be used in parent route elements to render their child route elements.
+- This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.
+
+#### <Link>
+- A <Link> is an element that lets the user navigate to another page by clicking or tapping on it. In react-router-dom, a <Link> renders an accessible <a> element with a real href that points to the resource it's linking to.
+- This means that things like right-clicking a <Link> work as you'd expect. You can use <Link reloadDocument> to skip client side routing and let the browser handle the transition normally (as if it were an <a href>).
+- USE <Link> INSTEAD OF <a> tag, because it will not reload the page on URL change, it will update the DOM, which is very fast.
+```
+<Link to={user.id}>{user.name}</Link>
+```
+
+## Another Routers:
+- There are different Routers provided by Router-dom, based on requirement we can use them, but the recommended way is createBrowserRouter only.
+- Several routers are:
+  1. createBrowserRouter (default)
+  2. createHashRouter
+  3. createMemoryRouter
+  4. createStaticRouter etc...
