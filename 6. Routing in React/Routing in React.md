@@ -189,3 +189,40 @@ export default function Root() {
   2. createHashRouter
   3. createMemoryRouter
   4. createStaticRouter etc...
+
+### createHashRouter
+- createHashRouter is part of react-router library and provides routing capabilities for SPAs. It's commonly used for buidling client-side navigation within applications.
+- Unlike, traditional server-side routing, it uses the fragment identified (hash) in the URL to manage and handle routes on the client side.
+- This means that changes in the URL after the #symbol do not trigger a fill page reload, making it suitable for SPAs.
+- To use createHashRouter, we typically import it from the react router library and define our routes using Route components, Here's basic example of how you might use it.
+```
+import { createHashRouter, Route } from 'react-router-dom';
+
+const App = () => {
+  return (
+    <createHashRouter>
+      <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
+    </createHashRouter>
+  )
+}
+```
+
+### createMemoryRouter
+- createMemoryRouter is another routing component provided by React router.
+- Unline createHashRouter or BrowserRouter, createMemoryRouter is not associated with browser URL.
+- Instead, it allows you to create an in-memory router for testing or other scenarios where you don't want to interact with actual browser's URL.
+```
+import { createMemoryRouter, Route } from 'react-router-dom';
+
+const App = () => {
+  return(
+    <createMemoryRouter>
+      <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
+    </createMemoryRouter>
+  );
+}
+```
+- In both cases, hash and memory router, we define our application's routes within the router component and specifiy the components to render for each route.
+- The choice between the router methods depends on our specific use case, such as whether we're building an SPA that interacts with the browser's URL or a scenaris where we need an in-memory router for testing.
