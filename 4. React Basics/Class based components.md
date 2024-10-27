@@ -123,3 +123,134 @@ class About extends React.Component {
 
 - In modern JavaScript and React, it's also common to define a constructor without explicitly calling super(props), and it will be automatically called for us. However, if we define a constructor in a child class, and the parent class has its constructor, it's a good practice to include super(props) to ensure that the parent class's constructor is invoked correctly.
 
+## Lifecycle and Order of Lifecyce in Class component:
+![image](https://github.com/user-attachments/assets/d768cb6d-91b1-4f58-9be6-1f6445776916)
+
+1. **Constructor** - The constructor method is the first to be called when a component is created. It's where we typically initialize the component's state and bind event handlers.
+2. **Render** - The render method is responsible for rendering the component's UI. It must return a React element (typically JSX) representing the component's structure.
+3. **ComponentDidMount** - This method is called immediately after the component is inserted into the DOM. It's often used for making AJAX requests, setting up subscriptions, or other one-time initializations.
+4. **ComponentDidUpdate** - This method is called after the component has been updated (re-rendered) due to changes in state or props. It's often used for side effects, like updating the DOM in response to state or prop changes.
+5. **ComponentWillUnmount** - This method is called just before the component is removed from the DOM. It's used to clean up resources or perform any necessary cleanup.
+
+- React lifecycle depicts how React work with components and its related function. As we can see, as soon as component instance is created, constructor is called, then the render function and then the phase of lifecycle starts.
+- There are three main phases of class component:
+  1. Mount phase
+  2. Update phase
+  3. Unmount phase
+ 
+- In the diagram, it is mentioned that React first completes the render phase and React known for it's core concepts i.e. quickly update the DOM with real time data. So it is doing it, let's understand this with an example.
+```
+// App.jsx
+class App extends React.Component {
+  constructor() {
+    super();
+    console.log("App Constructor called");
+  }
+
+  componentDidMount() {
+    console.log("App mount function called");
+  }
+
+  render() {
+    console.log("App render called");
+    return(
+      <About />
+    );
+  }
+}
+
+// About.jsx
+class About extends React.Component {
+  constructor() {
+    super();
+    console.log("About Constructor called");
+  }
+
+  componentDidMount() {
+    console.log("About mount function called");
+  }
+
+  render() {
+    console.log("About render called");
+    return(
+      <h1>Hello </h1>
+    );
+  }
+}
+```
+- In the above code, we put console.log in each function, we have child component 'About', which is called in App.jsx, so we can understand in which order React will execute the functions.
+```
+Output:
+App Constructor called
+App render called
+// It sees there is a another component called in App
+// It executes About.jsx then
+About Constructor called
+About render called
+About mount function called
+
+App mount function called
+```
+- So the output would be it will first render the parent and then execute the child component in the order and then called "Commit phase" of the parent component.
+- But lets have an instance, where we have multiple child component inside App.jsx, how it will behave?
+```
+// App.jsx
+class App extends React.Component {
+  constructor() {
+    super();
+    console.log("App Constructor called");
+  }
+
+  componentDidMount() {
+    console.log("App mount function called");
+  }
+
+  render() {
+    console.log("App render called");
+    return(
+      <About />    // About 1
+      <About />    // About 2
+    );
+  }
+}
+
+// About.jsx
+class About extends React.Component {
+  constructor() {
+    super();
+    console.log("About Constructor called");
+  }
+
+  componentDidMount() {
+    console.log("About mount function called");
+  }
+
+  render() {
+    console.log("About render called");
+    return(
+      <h1>Hello </h1>
+    );
+  }
+}
+```
+- In the above example, we called About component two times in App function, now what will be the output.
+```
+Output:
+App Constructor called
+App render called
+// It sees there is a another component called in App
+// It executes About.jsx then
+About Constructor called    // About 1
+About render called         // About 1
+
+// It optimize the called second component then
+About Constructor called    // About 2
+About render called         // About 2
+
+About mount function called  // About 1
+About mount function called  // About 2
+
+App mount function called
+```
+- React is so optimized and fast that it first completes the render side of each component, irrespective of how much components are there and then perform the "Commit phase", that is why, react is so fast.
+- For reference in the above diagram, we can see, React will first complete the Render phase and then Commit phase.
