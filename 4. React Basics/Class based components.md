@@ -254,3 +254,53 @@ App mount function called
 ```
 - React is so optimized and fast that it first completes the render side of each component, irrespective of how much components are there and then perform the "Commit phase", that is why, react is so fast.
 - For reference in the above diagram, we can see, React will first complete the Render phase and then Commit phase.
+
+### Why do we use componentDidMount?
+The  componentDidMount  lifecycle method in React class-based components is used for a specific purpose: it is called immediately after a component is inserted into the DOM (Document Object Model). This makes it a crucial point in the component's lifecycle and provides a valuable opportunity to perform various tasks that require interaction with the DOM or external data sources. Here are some common use cases for componentDidMount:
+1. **Fetching Data** - It's often used to make asynchronous requests to fetch data from APIs or external sources. This is a common scenario for components that need to display dynamic content.
+2. **DOM Manipulation** - When we need to interact with the DOM directly, such as selecting elements, setting attributes, or applying third-party libraries that require DOM elements to be present, we can safely do so in componentDidMount. This is because the component is guaranteed to be in the DOM at this point.
+
+- By using  componentDidMount , we can ensure that the data fetching or other side effects happen after the initial render and that our component interacts with the DOM or external data sources at the right time in the component's lifecycle.
+
+### Why do we use componentWillUnmount ?
+- The  componentWillUnmount  lifecycle method in React class-based components is used to perform cleanup and teardown tasks just before a component is removed from the DOM. It's a crucial part of managing resources and subscriptions to prevent memory leaks and ensure that the component's behavior is properly cleaned up. Here's why and when we should use componentWillUnmount:
+  1. **Cleanup Resources** - If your component has allocated any resources, such as event listeners, subscriptions, timers, or manual DOM manipulations, it's essential to release these resources to prevent memory leaks. componentWillUnmount is the appropriate place to do this.
+  2. **Cancel Pending Requests** - If your component has initiated any asynchronous requests, such as AJAX calls or timers, you should cancel or clean them up to avoid unexpected behavior after the component is unmounted.
+- Example:
+```
+class MyComponent extends React.Component {
+  constructor() {
+    super();
+    this.handleResize = this.handleResize.bind(this);
+  }
+
+  componentDidMount() {
+     // Add a window resize event listener when the component is mounted
+     window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+     // Remove the window resize event listener when the component is unmounted
+     window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize(event) {
+     // Handle the resize event
+     console.log('Window resized:', event);
+   }
+
+  render() {
+     return <div>My Component</div>;
+  }
+}
+```
+
+- In this example, the component adds a resize event listener to the window when it's mounted, and it removes that listener in the componentWillUnmount method.
+- This ensures that the event listener is properly cleaned up when the component is unmounted, preventing memory leaks or unexpected behavior.
+- By using componentWillUnmount, we can ensure that any cleanup tasks are executed reliably when the component is no longer needed, helping to maintain the integrity of our application and avoiding potential issues.
+
+
+### Why can't we have the callback function of useEffect async ?
+-  In React, the  useEffect  hook is designed to handle side effects in functional components. It's a powerful and flexible tool for managing asynchronous operations, such as data fetching, API calls, and more. However, useEffect itself cannot directly accept an async callback function. This is because useEffect expects its callback function to return either nothing (i.e., undefined) or a cleanup function, and it doesn't work well with Promises returned from async functions. There are a few reasons for this:
+ 1. **Return Value Expectation** - The primary purpose of the useEffect callback function is to handle side effects and perform cleanup. React expects us to either return nothing (i.e., undefined) from the callback or return a cleanup function. An async function returns a Promise, and it doesn't fit well with this expected behavior.
+ 2. **Execution Order and Timing** - With async functions, we might not have fine-grained control over the execution order of the asynchronous code and the cleanup code. React relies on the returned cleanup function to handle cleanup when the component is unmounted or when the dependencies specified in the useEffect dependency array change. If you return a Promise, React doesn't know when or how to handle cleanup.
