@@ -26,6 +26,48 @@ useContext  and  Redux  are both tools used for state management in React applic
 - `Use Redux When`: We have a complex application with a large state that needs to be shared across many components. We want a predictable state management pattern with a unidirectional data flow. We need middleware for advanced features like asynchronous actions.
 - Hence, Choose  useContext for simpler and local state management within components or small sections of our application . Choose  Redux for more complex applications where we need a global state that can be easily shared across different components.
 
+## What is Redux?
+- Redux helps you manage "global" state - state that is needed across many parts of your application.
+- The patterns and tools provided by Redux make it easier to understand when, where, why, and how the state in your application is being updated, and how your application logic will behave when those changes occur.
+
+## State Management
+- Here is one small example
+```
+function Counter() {
+  // State: a counter value
+  const [counter, setCounter] = useState(0)
+
+  // Action: code that causes an update to the state when something happens
+  const increment = () => {
+    setCounter(prevCounter => prevCounter + 1)
+  }
+
+  // View: the UI definition
+  return (
+    <div>
+      Value: {counter} <button onClick={increment}>Increment</button>
+    </div>
+  )
+}
+```
+It is a self-contained app with the following parts:
+- The state, the source of truth that drives our app
+- The view, a declarative description of the UI based on the current state
+- The actions, the events that occur in the app based on user input, and trigger updates in the state
+
+This is a small example of "one-way data flow":
+- State describes the condition of the app at a specific point in time
+- The UI is rendered based on that state
+- When something happens (such as a user clicking a button), the state is updated based on what occurred
+- The UI re-renders based on the new state
+
+However, the simplicity can break down when we have multiple components that need to share and use the same state, especially if those components are located in different parts of the application. Sometimes this can be solved by "lifting state up" to parent components, but that doesn't always help.
+
+One way to solve this is to extract the shared state from the components, and put it into a centralized location outside the component tree. With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
+
+By defining and separating the concepts involved in state management and enforcing rules that maintain independence between views and states, we give our code more structure and maintainability.
+
+This is the basic idea behind Redux: a single centralized place to contain the global state in your application, and specific patterns to follow when updating that state to make the code predictable.
 ## Redux Toolkit
 - Package which is intended to be the standard way to write Redux logic.
 - It was originally create to help address three common concerns about Redux:
