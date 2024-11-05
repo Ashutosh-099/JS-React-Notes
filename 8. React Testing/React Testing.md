@@ -124,6 +124,7 @@ test("Should render Contact us page", () => {
   3. getByPlaceholderText(<PLACEHOLDER_VALUE>)
   4. getByTitle(<TITLE>)
   5. getByTestId(<TEST_ID>) etc..
+- `getByRole` is also accepts second parameter, if we need to access element which is multiple in dom, but having different properties, then we can pass unique property in the second parameter. `screen.getByRole("button", { name: "Search"})`
 - `getByTestId` is a very useful function, if we need to find specific element, but there are more element or difficult to access element by there name, role, text. etc.
 - We can simple use `getByTestId`, just assign test id property to specific element, like `<h1 data-testid="heading">Hello World</h1>`
 - We can use the above like this, `screen.getByTestId("heading")`
@@ -133,3 +134,45 @@ test("Should render Contact us page", () => {
   3. getAllByPlaceholderText(<PLACEHOLDER_VALUE>)
   4. getAllByTitle(<TITLE>)
   5. getAllByTestId(<TEST_ID>) etc..
+
+
+### Accessing component wrapped under specific Provider:
+- Now, we saw how to access component, through which we can able to test the component in isolated way.
+- But in the application, there might be some component where it is wrapped under Provider, like RouterProvider, ReduxProvider.
+- To solve this, we need to similarly call the component by wrapping it the same.
+- E.g., Let's say, `Body` component is using redux and routing both in the component and it is wrapped under these provider while calling in React. To isolate Body with these providers, we will do,
+```
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import Body from "../Body";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "../../utils/store.js";
+
+test("Should render Body component", () => {
+   render(
+      <Provider store={store}>      // Provider for redux
+         <BrowserRouter>      // Provider for Routing
+            <Body />
+         </BrowserRouter>
+      </Provider>
+   )
+})
+```
+- The reason we need to wrapped the component is because, there is some function or properties we are using in the component, and js-dom environment will not able to understand as it is not a part of js or react. So to use those function or elements or anything, we need to wrapped those component like we did actual component.
+
+
+### Trigger an event in test cases
+- To trigger any event in test cases, we have `fireEvent` function.
+- E.g.
+```
+const button = screen.getByRole("button", { name: "Search" });
+
+fireEvent.click(button);
+```
+- We can also pass parameter, while triggering an event. Like, in onChange method, we need to provide value that is written in the input field. In test case,
+```
+const searchInput = screen.getByTestId("search-input");
+
+fireEvent.change(searchInput, { target: { value: "Hello" }});      // Passing value, user can access it e.target.value, if recall when accessing the input value. Same we are creating "e" in the second parameter.
+```
