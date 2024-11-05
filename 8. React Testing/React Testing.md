@@ -47,13 +47,21 @@ module.exports = { presets };
   - We are using jsdom as a test environment. When we run test cases, there is no browser or server. For running the test cases we need an enviornment which is jsdom.
 6. Install jsdom environment
   
-  `npm install --save-dev jest-environment-jsdom`
+     `npm install --save-dev jest-environment-jsdom`
+  
+7. To enable JSX in testing environment or in jsdom, we need to install babel preset.
 
+   `npm i -D @babel/preset=react`
+   - set babel config then:
+     ![image](https://github.com/user-attachments/assets/24f798b0-eeae-4557-8edf-be7bf7a7707c)
+
+8. After enabling we need to use DOM functions, for that install
+
+   `npm i -D @testing-library/jest-dom`
 
 ## Writing testcases standards
 - Create a folder `__tests__` and create a file in this folder with the `filename.test.js`
 - Add `coverage` folder in `.gitignore` file, it will contains information of running test cases with its coverage details.
 - To execute test command, `npm run test`, Make sure we have test command script in package.json, which is `"test": "jest"`
 - To continue execute like when we change it react and it will update the DOM, create new script in package.json, which is `"watchTest": "jest --watch"`
-- 
 
