@@ -51,7 +51,7 @@ module.exports = { presets };
   
 7. To enable JSX in testing environment or in jsdom, we need to install babel preset.
 
-   `npm i -D @babel/preset=react`
+   `npm i -D @babel/preset-react`
    - set babel config then:
      ![image](https://github.com/user-attachments/assets/24f798b0-eeae-4557-8edf-be7bf7a7707c)
 
