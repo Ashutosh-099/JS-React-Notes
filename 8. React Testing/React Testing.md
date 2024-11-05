@@ -164,6 +164,7 @@ test("Should render Body component", () => {
 
 ### Trigger an event in test cases
 - To trigger any event in test cases, we have `fireEvent` function.
+- Import fireEvent from @testing-library/react.
 - E.g.
 ```
 const button = screen.getByRole("button", { name: "Search" });
@@ -176,3 +177,61 @@ const searchInput = screen.getByTestId("search-input");
 
 fireEvent.change(searchInput, { target: { value: "Hello" }});      // Passing value, user can access it e.target.value, if recall when accessing the input value. Same we are creating "e" in the second parameter.
 ```
+
+### Passing data to component
+- Passing data into component into testcases are called as `mock data`.
+- Mock data is concept where we pass static data in the same format, that it is used in Component.
+- Mock data is used in the place like passing props, fetching data from API etc.
+- E.g.
+```
+const mockData= {}      // or store the mockData into seperate file if it is big
+
+test("", () => {
+   render(<Component data={mockData} />);
+   // Querying...
+   // Assertion..
+})
+```
+
+### Fetching in test cases
+- Now in components, we use `fetch` function to connect with outside world.
+- fetch function is provided by browser to JS engine
+- Our test cases environment, is just a test enviornment which have `browser like` environment, but do have power to connect with outside world, i.e. js-dom doesn't understand fetch function.
+- To make it available for our js-dom, we need to create mock fetch function to replace it with actual function. Also, whenever we do such actions, we need to command to component to act on this.
+- Therefore, React provides a helper called act() that makes sure all updates related to these “units” have been processed and applied to the DOM before you make any assertions.
+- act function is useful in more places, basically it will help **to do something after the render**.
+- It guarantees 2 things for any code run inside its scope:
+  1. any state updates will be executed
+  2. any enqueued effects will be executed
+- act is also useful for async operations, like fetch.
+```
+import { act } from "react-dom/test-utils"
+
+test("should render component", async () => {
+   // To perform async operation in Body component
+   await act(async () => render(<Body />))
+})
+```
+- Now, for mock function, here how we can create mock function, using `jest.fn()`.
+```
+global.fetch = jest.fn(() => {
+   return Promise.resolve({
+      json: () => {
+         return Promise.resolve(data);      // Return mock data
+      }
+   })
+});
+```
+- To understand above code, we need to know the behaviour of actual fetch function.
+- fetch() returns promise object and inside the promise, we have json that is also return Promise. Therefore, everytime, we use fetch(), we do like this.
+```
+const response = await fetch("URL");   // Return promise object which contains json
+
+const data = await response.json();   // Return actual data in json format.
+```
+- We used `global`, because it will set this function globally, which helps to understand js-dom that there is fetch function from global object that we need to use.
+
+## Exploration in Test library
+- If we need to execute some logic before or after the testcases, like cleanup or setup, there are some functions that we can leverage.
+- Such functions are: beforeAll(), afterAll(), beforeEach(), afterEach()
+![image](https://github.com/user-attachments/assets/4760681c-be94-41cf-83bc-6949980de67f)
