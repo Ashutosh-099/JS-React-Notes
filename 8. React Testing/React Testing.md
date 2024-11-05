@@ -58,7 +58,8 @@ module.exports = { presets };
 8. After enabling we need to use DOM functions, for that install
 
    `npm i -D @testing-library/jest-dom`
-
+   - Import this library in test file to use the dom functions. like `import "@testing-library/jest-dom"`
+   
 ## Writing testcases standards
 - Create a folder `__tests__` and create a file in this folder with the `filename.test.js`
 - Add `coverage` folder in `.gitignore` file, it will contains information of running test cases with its coverage details.
