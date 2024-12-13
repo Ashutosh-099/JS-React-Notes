@@ -52,7 +52,32 @@ function DataFetching = () => {
   );
 }
 ```
+
 #### When will callback function get called inside the useEffect():
 - Callback function is getting called after the whole component get rendered.
 - If we have to do something after the render cycle completes we can pass it inside the useEffect, this is the actual use case of useEffect.
 
+### useMemo()
+- useMemo that lets you **cache the results** of calculation **between re-renders**.
+- Syntax: `const value = useMemo(CalculatedValue, [Dependencies])`
+  - CalculatedValue is a funcion which returns some value, and it cache the value returned by the function. Let's say, I'm passing prime number calculation function as Callback in useMemo, which returns Nth prime number.
+  - Dependencies is variables based on which function is dependent on, it's like cache the result but only change if there is any change in dependent variable.
+- Use cases:
+  - **Expensive calculations**: Expensive calculation which takes times to do some calculation and affects the React rendering or UI performance, like if we do Nth prime number calculation based on user input, it will take time for larger number(7 digit nth no.) that affects browser performance and if we are doing other operation like state change or props change, then also it will do prime no calculation for same no, even the number is not change, At this place, we can use useMemo hooks to improve the performance.
+  - **Skipping re-rendering of components**: Similar method as above, passing large props may affect the child component, so it good to memoize the child component if props is same. We can do that using **memo()** function. Note: useMemo and memo is different.
+ 
+
+### useCallback()
+- React Hook that lets you **cache a function** definition **between re-renders**.
+- Syntax: `const cachedFn = useCallback(fn, dependencies)`
+  - fn: The function value that you want to cache. React will return (not call!) your function back to you during the initial render. On next renders, React will give you the same function again if the dependencies have not changed since the last render.
+  - dependencies: The list of all reactive values referenced inside of the fn code.
+- Usecases:
+  1. Skipping re-rendering of component
+  2. Updating state from memoized callback
+- When to use useCallback():
+  1. The function is passed as a prop to a React.memo-wrapped child component.
+  2. The function is a dependency of useEffect, useMemo, or another hook, and its stability is important.
+  3. The function performs an expensive computation that you want to avoid re-creating unnecessarily.
+- When NOT to use useCallback():
+  - Don’t use useCallback for every function—it adds complexity and overhead (React needs to remember the function reference). If a function isn’t causing re-renders or isn’t used as a dependency, there’s no benefit to caching it.
