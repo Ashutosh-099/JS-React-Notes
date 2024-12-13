@@ -81,3 +81,13 @@ function DataFetching = () => {
   3. The function performs an expensive computation that you want to avoid re-creating unnecessarily.
 - When NOT to use useCallback():
   - Don’t use useCallback for every function—it adds complexity and overhead (React needs to remember the function reference). If a function isn’t causing re-renders or isn’t used as a dependency, there’s no benefit to caching it.
+
+
+### useRef()
+- React hook that let's you reference a value **that's not needed for rendering**.
+- Syntax: `const ref = useRef(initialValue)`
+- useRef persist the value even after component re-render, this is what makes useRef makes special.
+- Difference between `useRef vs primitive variable (let, const, var) vs State variables`?
+  - **State variable:** When the state value updates it re-renders the components and its child and also persist the value after re-render.
+  - **Primitive variable:** When the primitive variable changes, it will not re-renders the component also it will set to initial value after re-render.
+  - **Ref variable:** When the ref variable changes, it will not re-render the component but will persist the value even after re-render.
