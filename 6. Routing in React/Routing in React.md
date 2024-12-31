@@ -226,3 +226,50 @@ const App = () => {
 ```
 - In both cases, hash and memory router, we define our application's routes within the router component and specifiy the components to render for each route.
 - The choice between the router methods depends on our specific use case, such as whether we're building an SPA that interacts with the browser's URL or a scenaris where we need an in-memory router for testing.
+
+## Protected Routes
+Protected Routes are the routes which should be accessed only after user authentication, if user is not authenticated then it will be redirected to Login. Therefore, Protected routes in React Router DOM are used to restrict access to certain parts of your application based on user authentication.
+
+To make the route protected we can use Higher Order Component concept, i.e. create a wrapper class which takes the component and checks if user is authenticated or not, if no then navigate to Login page.
+```
+// ProtectedRouter.jsx
+const ProtectedRouter = () => {
+  const isAuthenticated = // Logic of authentication check
+
+  return isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />;
+}
+
+// App.jsx
+<BrowserRouter>
+  <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route element={<ProtectedRouter/>}>
+      <Route path="/home" element={<Home />} />
+      <Route path="/about" element={<AboutUs />} />
+    </Route>
+  </Routes>
+</BrowserRouter>
+```
+- Another Approach is
+```
+// ProtectedRouter.jsx
+const ProtectedRouter = ({element: Element}) => {
+  const isAuthenticated = // Logic of checking authentication
+
+  return isAuthenticated ? <Element /> : <Navigate to="/login" />;
+}
+
+// App.jsx
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/",
+    element: <ProtectedRouter element={<Home />} />
+  }
+]);
+
+<RouterProvider router={router} />
+```
